@@ -1,27 +1,24 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import MainLayout from './layouts/MainLayout'
-import AdminLayout from './layouts/AdminLayout'
-
-// Public Pages
-import HomePage from './pages/public/HomePage'
-import AboutPage from './pages/public/AboutPage'
-import LeadershipPage from './pages/public/LeadershipPage'
-import AcademicProgramsPage from './pages/public/AcademicProgramsPage'
-import DepartmentsPage from './pages/public/DepartmentsPage'
-import AdmissionsPage from './pages/public/AdmissionsPage'
-import NewsPage from './pages/public/NewsPage'
-import EventsPage from './pages/public/EventsPage'
-import GalleryPage from './pages/public/GalleryPage'
-import ContactPage from './pages/public/ContactPage'
+import HomePage from './pages/website/HomePage'
+import AboutPage from './pages/website/AboutPage'
+import LeadershipPage from './pages/website/LeadershipPage'
+import AcademicProgramsPage from './pages/website/AcademicProgramsPage'
+import ContactPage from './pages/website/ContactPage'
+import GalleryPage from './pages/website/GalleryPage'
+import EventsPage from './pages/website/EventsPage'
+import NewsPage from './pages/website/NewsPage'
+import AdmissionsPage from './pages/website/AdmissionsPage'
+import DepartmentsPage from './pages/website/DepartmentsPage'
 import LoginPage from './pages/auth/LoginPage'
-
-// Admin Pages
-import AdminDashboard from './pages/admin/AdminDashboard'
-import AdminNews from './pages/admin/AdminNews'
-import AdminEvents from './pages/admin/AdminEvents'
-import AdminBanners from './pages/admin/AdminBanners'
-import AdminUsers from './pages/admin/AdminUsers'
+import AdminLayout from './layouts/AdminLayout'
 import AdminSettings from './pages/admin/AdminSettings'
+import AdminUsers from './pages/admin/AdminUsers'
+import AdminBanners from './pages/admin/AdminBanners'
+import AdminEvents from './pages/admin/AdminEvents'
+import AdminNews from './pages/admin/AdminNews'
+import AdminDashboard from './pages/admin/AdminDashboard'
+
 
 function App() {
   return (
