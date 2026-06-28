@@ -19,15 +19,15 @@ export default function Header() {
   ]
 
   return (
-    <header className="bg-primary text-white sticky top-0 z-50 shadow-lg">
+    <header className="bg-background text-white sticky top-0 z-50 shadow-lg">
       <div className="container-main py-4">
         <div className="flex justify-between items-center">
           <Link to="/" className="text-2xl font-bold">
-            School Logo
+            <img src='logo.webp' alt="Logo" className="sm:h-16 md:h-18 lg:h-20 rounded-full w-auto" />
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex gap-8">
+          <nav className="hidden font-bold  md:flex gap-8 text-primary">
             {navItems.map((item) => (
               <Link
                 key={item.href}
@@ -40,19 +40,19 @@ export default function Header() {
           </nav>
 
           {/* Admin and Login */}
-          <div className="hidden md:flex gap-4 items-center">
+          {/* <div className="hidden md:flex gap-4 items-center">
             <Link to="/login" className="btn-outline text-sm py-2 px-4">
               Login
             </Link>
             <Link to="/admin" className="btn-secondary text-sm py-2 px-4">
               Admin
             </Link>
-          </div>
+          </div> */}
 
           {/* Mobile Menu Toggle */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden"
+            className="md:hidden text-primary hover:text-accent font-bold"
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -60,7 +60,7 @@ export default function Header() {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <nav className="md:hidden mt-4 pb-4 flex flex-col gap-4">
+          <nav className="md:hidden mt-4 pb-4 flex flex-col gap-4 text-primary">
             {navItems.map((item) => (
               <Link
                 key={item.href}
@@ -71,9 +71,9 @@ export default function Header() {
                 {item.label}
               </Link>
             ))}
-            <Link to="/login" className="btn-outline text-sm py-2 px-4 inline-block">
+            {/* <Link to="/login" className="btn-outline text-sm py-2 px-4 inline-block">
               Login
-            </Link>
+            </Link> */}
           </nav>
         )}
       </div>
