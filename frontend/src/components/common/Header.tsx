@@ -1,29 +1,33 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { Menu, X } from 'lucide-react'
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Menu, X } from "lucide-react";
 
 export default function Header() {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
-    { label: 'Home', href: '/' },
-    { label: 'About', href: '/about' },
-    { label: 'Leadership', href: '/leadership' },
-    { label: 'Programs', href: '/academic-programs' },
-    { label: 'Departments', href: '/departments' },
-    { label: 'Admissions', href: '/admissions' },
-    { label: 'News', href: '/news' },
-    { label: 'Events', href: '/events' },
-    { label: 'Gallery', href: '/gallery' },
-    { label: 'Contact', href: '/contact' },
-  ]
+    { label: "Home", href: "/" },
+    { label: "About", href: "/about" },
+    { label: "Leadership", href: "/leadership" },
+    { label: "Programs", href: "/academic-programs" },
+    { label: "Departments", href: "/departments" },
+    { label: "Admissions", href: "/admissions" },
+    { label: "News", href: "/news" },
+    { label: "Events", href: "/events" },
+    { label: "Gallery", href: "/gallery" },
+    { label: "Contact", href: "/contact" },
+  ];
 
   return (
     <header className="bg-background text-white sticky top-0 z-50 shadow-lg">
       <div className="container-main py-4">
         <div className="flex justify-between items-center">
           <Link to="/" className="text-2xl font-bold">
-            <img src='logo.webp' alt="Logo" className="sm:h-16 md:h-18 lg:h-20 rounded-full w-auto" />
+            <img
+              src="logo.webp"
+              alt="Logo"
+              className="sm:h-16 md:h-18 lg:h-20 rounded-full w-auto"
+            />
           </Link>
 
           {/* Desktop Navigation */}
@@ -78,5 +82,5 @@ export default function Header() {
         )}
       </div>
     </header>
-  )
+  );
 }
