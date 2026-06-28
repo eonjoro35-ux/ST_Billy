@@ -71,11 +71,21 @@ export default function HomePage() {
           <span className="inline-block text-xs md:text-sm font-semibold tracking-wider text-accent uppercase mb-3">
             Admissions Open for 2026 / 2027
           </span>
-          <h1 className="text-5xl font-bold mb-4">Welcome to Our School</h1>
-          <p className="text-xl mb-8">"Educating Leaders of Tomorrow"</p>
+          <h1 className="text-5xl font-bold mb-4">
+            ST BILL COMMUNITY EDUCACTION CENTER
+          </h1>
+          <p className="text-xl mb-8">
+            "Transforming communities by creating hope and a future for the
+            vulnerable, underprivileged and orphaned children through offering
+            quality education."
+          </p>
           <div className="flex gap-4">
-            <button className="btn-primary">Apply Now</button>
-            <button className="btn-outline">Contact Us</button>
+            <a href="/academic-programs" className="btn-primary">
+              Programs
+            </a>
+            <a className="btn-outline" href="/contact">
+              Contact Us
+            </a>
           </div>
         </div>
       </section>
