@@ -1,5 +1,13 @@
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin, Facebook, Linkedin, Youtube } from "lucide-react";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Facebook,
+  Linkedin,
+  Youtube,
+  Heart,
+} from "lucide-react";
 
 export default function Footer() {
   return (
@@ -9,34 +17,53 @@ export default function Footer() {
           {/* About */}
           <div>
             <h3 className="text-xl font-bold mb-4">About School</h3>
-            <p className="text-gray-300">
-              Providing quality education and nurturing young minds for a
-              brighter future.
+            <p className="text-gray-300 text-sm leading-relaxed mb-4">
+              Providing alternative basic education, psychological support, and
+              nutritional safety nets to children in Dandora.
             </p>
+            <Link
+              to="/donate"
+              className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider bg-accent text-white px-4 py-2 rounded-lg hover:bg-accent/90 transition-colors"
+            >
+              <Heart size={12} fill="currentColor" /> Support Our Mission
+            </Link>
           </div>
 
           {/* Quick Links */}
           <div>
             <h3 className="text-xl font-bold mb-4">Quick Links</h3>
-            <ul className="space-y-2 text-gray-300">
+            <ul className="space-y-2 text-gray-300 text-sm">
               <li>
-                <Link to="/admissions" className="hover:text-accent">
-                  Admissions
+                <Link to="/about" className="hover:text-accent">
+                  About
                 </Link>
               </li>
               <li>
-                <Link to="/news" className="hover:text-accent">
-                  News
+                <Link to="/leadership" className="hover:text-accent">
+                  Leadership
                 </Link>
               </li>
               <li>
-                <Link to="/events" className="hover:text-accent">
-                  Events
+                <Link to="/academic-programs" className="hover:text-accent">
+                  Programs
+                </Link>
+              </li>
+              <li>
+                <Link to="/gallery" className="hover:text-accent">
+                  Gallery
                 </Link>
               </li>
               <li>
                 <Link to="/contact" className="hover:text-accent">
                   Contact
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/donate"
+                  className="hover:text-accent font-semibold text-accent"
+                >
+                  Donate Directly
                 </Link>
               </li>
             </ul>
@@ -45,15 +72,21 @@ export default function Footer() {
           {/* Contact Info */}
           <div>
             <h3 className="text-xl font-bold mb-4">Contact</h3>
-            <ul className="space-y-3 text-gray-300">
-              <li className="flex gap-2">
-                <Phone size={20} /> +254 729 974 353
+            <ul className="space-y-3 text-gray-300 text-sm">
+              <li className="flex gap-2 items-center">
+                <Phone size={18} /> +254 729 974 353
               </li>
-              <li className="flex gap-2">
-                <Mail size={20} /> stbilleducationalcentre@gmail.com
+              <li className="flex gap-2 items-center">
+                <Mail size={18} className="break-all" />{" "}
+                stbilleducationalcentre@gmail.com
               </li>
-              <li className="flex gap-2">
-                <MapPin size={20} /> Dandora, Nairobi, Kenya
+              <li className="flex gap-2 items-start">
+                <MapPin size={18} className="mt-0.5 flex-shrink-0" />
+                <span>
+                  Dandora Slums,
+                  <br />
+                  Nairobi, Kenya
+                </span>
               </li>
             </ul>
           </div>
@@ -92,7 +125,7 @@ export default function Footer() {
 
         <hr className="border-gray-700 my-8" />
 
-        <div className="flex flex-col md:flex-row justify-between items-center text-gray-300">
+        <div className="flex flex-col md:flex-row justify-between items-center text-gray-300 text-sm">
           <p>
             &copy; {new Date().getFullYear()} St Bill Community Education
             Center. All Rights Reserved.
