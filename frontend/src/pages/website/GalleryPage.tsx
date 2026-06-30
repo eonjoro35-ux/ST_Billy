@@ -1,86 +1,75 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { supabase } from "../../services/supabaseClient";
 
-// Animation Presets
 const staggerContainer = {
   hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.08 },
-  },
+  visible: { opacity: 1, transition: { staggerChildren: 0.05 } },
 };
 
 const itemFadeIn = {
-  hidden: { opacity: 0, scale: 0.9 },
+  hidden: { opacity: 0, scale: 0.95 },
   visible: {
     opacity: 1,
     scale: 1,
-    transition: { type: "spring", stiffness: 100, damping: 15 },
+    transition: { type: "spring", stiffness: 100, damping: 17 },
   },
 };
 
 export default function GalleryPage() {
-  // Set default active tab to "All"
   const [activeCategory, setActiveCategory] = useState("All");
+  const [rawImages, setRawImages] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  // --- DYNAMIC DATA MAP ---
-  // Replace these blank array objects with your actual image file strings!
-  const galleryData = {
-    "Class Activities": [
-      { id: "c1", src: "", alt: "Students engaged in group study" },
-      { id: "c2", src: "", alt: "Math session on alternative curriculum" },
-      { id: "c3", src: "", alt: "Reading workshop circles" },
-    ],
-    Laboratories: [
-      { id: "l1", src: "", alt: "Computer science desktop units setup" },
-      { id: "l2", src: "", alt: "Basic science experimentation desk" },
-    ],
-    Sports: [
-      { id: "s1", src: "", alt: "Football rehabilitation matches" },
-      { id: "s2", src: "", alt: "Athletics training field track run" },
-      { id: "s3", src: "", alt: "Inter-school friendly basketball games" },
-    ],
-    "School Trips": [
-      { id: "t1", src: "", alt: "Excursion bus departure outside center" },
-      { id: "t2", src: "", alt: "Nairobi local wildlife education visit" },
-    ],
-    "Graduation Ceremonies": [
-      {
-        id: "g1",
-        src: "",
-        alt: "Primary scholars receiving exit certificates",
-      },
-      { id: "g2", src: "", alt: "Parent-teacher celebration assembly lines" },
-    ],
-    Events: [
-      { id: "e1", src: "", alt: "Porridge distribution meal lines at 10 AM" },
-      { id: "e2", src: "", alt: "Psychosocial therapy open theater circle" },
-      { id: "e3", src: "", alt: "Community sensitization group meeting" },
-    ],
-  };
+  useEffect(() => {
+    async function loadPublicGallery() {
+      try {
+        setLoading(true);
+        const { data, error } = await supabase
+          .from("gallery_items")
+          .select("*")
+          .order("created_at", { ascending: false });
 
-  // Process data for counts and general display array
-  const categoriesList = Object.keys(galleryData).map((catName) => ({
+        if (error) throw error;
+        setRawImages(data || []);
+      } catch (err) {
+        console.error("Error connecting to gallery DB storage source:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadPublicGallery();
+  }, []);
+
+  // Defined static categories to render counters consistently
+  const categoriesBase = [
+    "Class Activities",
+    "Laboratories",
+    "Sports",
+    "School Trips",
+    "Graduation Ceremonies",
+    "Events",
+  ];
+
+  const categoriesList = categoriesBase.map((catName) => ({
     name: catName,
-    count: galleryData[catName as keyof typeof galleryData].length,
+    count: rawImages.filter((img) => img.category === catName).length,
   }));
 
-  // Flatten everything if "All" is picked, else pluck selected category
+  // Filter image item collections safely on the runtime client thread
   const displayedImages =
     activeCategory === "All"
-      ? Object.values(galleryData).flat()
-      : galleryData[activeCategory as keyof typeof galleryData] || [];
+      ? rawImages
+      : rawImages.filter((img) => img.category === activeCategory);
 
   return (
     <div className="space-y-12 bg-gray-50/40 min-h-screen pb-20 overflow-hidden">
       {/* Header Banner */}
       <section className="bg-primary text-white py-14 shadow-sm relative">
-        <div className="container-main">
-          {/* Animated Back Button */}
+        <div className="max-w-7xl mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.1, duration: 0.4 }}
             className="mb-4"
           >
             <a
@@ -89,11 +78,10 @@ export default function GalleryPage() {
             >
               <span className="transform group-hover:-translate-x-1 transition-transform inline-block">
                 ←
-              </span>
+              </span>{" "}
               Back to Home
             </a>
           </motion.div>
-
           <motion.h1
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -103,17 +91,15 @@ export default function GalleryPage() {
           </motion.h1>
           <p className="mt-1 text-white/80 text-sm">
             A window into daily student development, nutrition modules, and
-            community events in Dandora.
+            community events at St. Bill Educational Centre.
           </p>
         </div>
       </section>
 
       {/* Category Selection Grid Section */}
-      <section className="container-main">
+      <section className="max-w-7xl mx-auto px-4">
         <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-          <h2 className="section-title text-primary">Photo Collections</h2>
-
-          {/* Reset View Filter Filter Badge */}
+          <h2 className="text-2xl font-bold text-primary">Photo Collections</h2>
           <button
             onClick={() => setActiveCategory("All")}
             className={`text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-lg border transition-all ${
@@ -122,7 +108,7 @@ export default function GalleryPage() {
                 : "bg-white text-gray-500 border-gray-200 hover:bg-gray-100"
             }`}
           >
-            👁️ Show All Photos ({Object.values(galleryData).flat().length})
+            👁️ Show All Photos ({rawImages.length})
           </button>
         </div>
 
@@ -134,7 +120,7 @@ export default function GalleryPage() {
                 key={i}
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.05 }}
+                transition={{ delay: i * 0.03 }}
                 whileHover={{ y: -4, scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 onClick={() => setActiveCategory(category.name)}
@@ -159,9 +145,9 @@ export default function GalleryPage() {
       </section>
 
       {/* Dynamic Image Display Workspace Grid */}
-      <section className="container-main">
+      <section className="max-w-7xl mx-auto px-4">
         <div className="border-b border-gray-200/60 pb-3 mb-6 flex items-center justify-between">
-          <h2 className="section-title text-primary">
+          <h2 className="text-xl font-bold text-primary">
             Showing:{" "}
             <span className="text-secondary font-semibold">
               {activeCategory}
@@ -172,72 +158,60 @@ export default function GalleryPage() {
           </span>
         </div>
 
-        {/* AnimatePresence handles grid reshuffling items cleanly layout items vanish or enter */}
-        <motion.div
-          layout
-          variants={staggerContainer}
-          initial="hidden"
-          animate="visible"
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
-        >
-          <AnimatePresence mode="popLayout">
-            {displayedImages.map((img) => (
-              <motion.div
-                layout
-                id={img.id}
-                key={img.id}
-                variants={itemFadeIn}
-                initial="hidden"
-                animate="visible"
-                exit={{ opacity: 0, scale: 0.8, transition: { duration: 0.2 } }}
-                whileHover={{
-                  y: -5,
-                  boxShadow: "0 12px 20px -8px rgba(0,0,0,0.15)",
-                }}
-                className="bg-white rounded-xl overflow-hidden border border-gray-100 p-2.5 flex flex-col group transition-shadow"
-              >
-                {/* Visual Frame Container */}
-                <div className="bg-gray-100 h-44 rounded-lg flex items-center justify-center relative overflow-hidden text-gray-400 border shadow-inner">
-                  {img.src ? (
+        {loading ? (
+          <div className="text-center py-12 text-text-muted animate-pulse font-medium">
+            Loading gallery grid assets securely from database stream...
+          </div>
+        ) : displayedImages.length === 0 ? (
+          <div className="text-center py-16 bg-white rounded-xl border text-text-muted font-medium">
+            No active photographic media items posted in this category folder
+            yet.
+          </div>
+        ) : (
+          <motion.div
+            layout
+            variants={staggerContainer}
+            initial="hidden"
+            animate="visible"
+            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+          >
+            <AnimatePresence mode="popLayout">
+              {displayedImages.map((img) => (
+                <motion.div
+                  layout
+                  key={img.id}
+                  variants={itemFadeIn}
+                  initial="hidden"
+                  animate="visible"
+                  exit={{
+                    opacity: 0,
+                    scale: 0.9,
+                    transition: { duration: 0.15 },
+                  }}
+                  whileHover={{
+                    y: -5,
+                    boxShadow: "0 12px 20px -8px rgba(0,0,0,0.12)",
+                  }}
+                  className="bg-white rounded-xl overflow-hidden border border-gray-100 p-2.5 flex flex-col group transition-shadow"
+                >
+                  <div className="bg-gray-100 h-44 rounded-lg flex items-center justify-center relative overflow-hidden border shadow-inner">
                     <img
-                      src={img.src}
-                      alt={img.alt}
+                      src={img.image_url}
+                      alt={img.caption}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).style.display = "none";
-                      }}
+                      loading="lazy"
                     />
-                  ) : (
-                    <div className="flex flex-col items-center justify-center gap-1.5 opacity-60">
-                      <svg
-                        className="w-8 h-8 stroke-[1.5]"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
-                        />
-                      </svg>
-                      <span className="text-[10px] font-mono tracking-wider uppercase bg-gray-200/60 px-1.5 py-0.5 rounded text-gray-500">
-                        Image Asset Box
-                      </span>
-                    </div>
-                  )}
-                </div>
-
-                {/* Sub-label Caption context */}
-                <div className="pt-3 pb-1 px-1">
-                  <p className="text-gray-700 text-xs font-medium leading-normal line-clamp-2">
-                    {img.alt}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+                  </div>
+                  <div className="pt-3 pb-1 px-1">
+                    <p className="text-text-primary text-xs font-semibold leading-normal line-clamp-2">
+                      {img.caption}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
+        )}
       </section>
     </div>
   );

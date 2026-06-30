@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { supabase } from "@/services/supabaseClient";
 
 // Container staggering presets
 const containerVariants = {
@@ -44,15 +45,33 @@ export default function ContactPage() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulating API backend request latency
-    await new Promise((resolve) => setTimeout(resolve, 1200));
+    try {
+      // Direct insertion mapping the React state hooks onto the Supabase table definition columns
+      const { error } = await supabase.from("contact_messages").insert([
+        {
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone.trim() || null, // Handles optional numbers correctly
+          subject: formData.subject,
+          message_body: formData.message,
+        },
+      ]);
 
-    console.log("Form submitted successfully:", formData);
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+      if (error) throw error;
 
-    // Reset form fields
-    setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+      console.log("Form entry saved directly to database successfully.");
+      setIsSubmitted(true);
+
+      // Clear data parameters cleanly
+      setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+    } catch (err) {
+      console.error("Database persistence failure:", err);
+      alert(
+        "System was unable to record your inquiry. Please try again or reach out directly.",
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (

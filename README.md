@@ -50,7 +50,7 @@ ST.Billy/
 │   ├── src/
 │   │   ├── components/      # Reusable UI components
 │   │   ├── pages/
-│   │   │   ├── public/      # Public pages
+│   │   │   ├── website/      # Public pages
 │   │   │   ├── admin/       # Admin pages
 │   │   │   └── auth/        # Authentication pages
 │   │   ├── layouts/         # Layout components
