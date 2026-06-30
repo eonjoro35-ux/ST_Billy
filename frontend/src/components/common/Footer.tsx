@@ -125,7 +125,7 @@ export default function Footer() {
 
         <hr className="border-gray-700 my-8" />
 
-        <div className="flex flex-col md:flex-row justify-between items-center text-gray-300 text-sm">
+        <div className="flex flex-col md:flex-row justify-center items-center text-center text-gray-300 text-sm">
           <p>
             &copy; {new Date().getFullYear()} St Bill Community Education
             Center. All Rights Reserved.

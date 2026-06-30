@@ -1,70 +1,90 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { authAPI } from '../../services/api'
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { supabase } from "../../services/supabaseClient";
+import { PORTAL_PREFIX } from "../../App";
 
 export default function LoginPage() {
   const [formData, setFormData] = useState({
-    username: '',
-    password: '',
-  })
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
-  const navigate = useNavigate()
+    email: "", // Changed from username to email for Supabase Auth consistency
+    password: "",
+  });
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
-    })
-  }
+    });
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-    setError('')
+    e.preventDefault();
+    setLoading(true);
+    setError("");
 
     try {
-      await authAPI.login(formData.username, formData.password)
-      navigate('/admin')
+      const { data, error: authError } = await supabase.auth.signInWithPassword(
+        {
+          email: formData.email,
+          password: formData.password,
+        },
+      );
+
+      if (authError) throw authError;
+
+      // Secure login complete, route into hidden section dashboard
+      navigate(PORTAL_PREFIX);
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Login failed')
+      setError(err.message || "Invalid login credentials");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
-    <div className="min-h-screen bg-primary flex items-center justify-center">
-      <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-md">
-        <h1 className="text-3xl font-bold text-primary mb-8 text-center">Admin Login</h1>
+    <div className="min-h-screen bg-secondary flex items-center justify-center p-4">
+      <div className="bg-white rounded-lg shadow-xl p-8 w-full max-w-md border-t-4 border-primary">
+        <h1 className="text-3xl font-bold text-text-primary mb-2 text-center">
+          St. Bill Portal
+        </h1>
+        <p className="text-center text-text-muted mb-8 text-sm">
+          Authorized Administrative Access Only
+        </p>
 
         {error && (
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-6">
+          <div className="bg-red-50 border border-danger text-danger px-4 py-3 rounded-lg mb-6 text-sm">
             {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-gray-700 font-bold mb-2">Username</label>
+            <label className="block text-text-primary font-bold mb-2 text-sm">
+              Admin Email
+            </label>
             <input
-              type="text"
-              name="username"
-              value={formData.username}
+              type="email"
+              name="email"
+              value={formData.email}
               onChange={handleChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary text-text-primary"
+              placeholder="admin@stbilleducationalcentre.org"
               required
             />
           </div>
 
           <div>
-            <label className="block text-gray-700 font-bold mb-2">Password</label>
+            <label className="block text-text-primary font-bold mb-2 text-sm">
+              Password
+            </label>
             <input
               type="password"
               name="password"
               value={formData.password}
               onChange={handleChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-primary text-text-primary"
               required
             />
           </div>
@@ -72,12 +92,12 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full btn-primary disabled:opacity-50"
+            className="w-full bg-primary text-white py-3 rounded-lg font-bold hover:bg-red-800 transition-colors disabled:opacity-50"
           >
-            {loading ? 'Logging in...' : 'Login'}
+            {loading ? "Verifying Credentials..." : "Sign In"}
           </button>
         </form>
       </div>
     </div>
-  )
+  );
 }
