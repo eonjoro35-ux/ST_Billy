@@ -11,7 +11,12 @@ import {
 
 export default function Footer() {
   return (
-    <footer className="bg-primary text-white mt-20">
+    <footer
+      className="relative isolate mt-20 overflow-hidden bg-primary bg-cover bg-center text-white"
+      style={{ backgroundImage: "url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=2200&q=80')" }}
+    >
+      <div className="absolute inset-0 -z-10 bg-[#4a0f0f]/85" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-[#4a0f0f]/95 via-[#4a0f0f]/80 to-[#4a0f0f]/70" />
       <div className="container-main py-16">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* About */}

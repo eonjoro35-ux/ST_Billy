@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 const fadeInUp = {
@@ -12,43 +11,15 @@ const staggerContainer = {
 };
 
 export default function HomePage() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const images = [
-    "/hero/classroom.jpg",
-    "/hero/computer_student.jpg",
-    "/hero/sewing_class.jpg",
-    "/hero/student_farming.jpg",
-  ];
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, [images.length]);
-
-
   return (
     <div className="space-y-16 overflow-hidden bg-gray-50/50">
       {/* Hero Section */}
-      <section className="relative min-h-[550px] md:h-[600px] w-full overflow-hidden bg-secondary flex items-center py-20">
-        {images.map((imgUrl, index) => {
-          const isActive = index === currentIndex;
-          return (
-            <motion.img
-              key={imgUrl}
-              src={imgUrl}
-              alt={`School Campus View ${index + 1}`}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: isActive ? 0.9 : 0 }}
-              transition={{ duration: 1 }}
-              className="absolute inset-0 h-full w-full object-cover object-center pointer-events-none filter brightness-70"
-              style={{ zIndex: isActive ? 6 : 0 }}
-            />
-          );
-        })}
-        <div className="absolute inset-0 z-10 backdrop-blur-sm bg-[#4a0f0f]/35 md:bg-gradient-to-r md:from-[#4a0f0f]/70 md:via-[#4a0f0f]/45 md:to-transparent"></div>
+      <section
+        className="relative min-h-[550px] md:h-[600px] w-full overflow-hidden bg-secondary bg-cover bg-center flex items-center py-20"
+        style={{ backgroundImage: "url('https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=2200&q=85')" }}
+      >
+        <div className="absolute inset-0 z-0 bg-[#4a0f0f]/55"></div>
+        <div className="absolute inset-0 z-0 bg-gradient-to-r from-[#4a0f0f]/80 via-[#4a0f0f]/55 to-[#4a0f0f]/25"></div>
         <motion.div
           className="container-main relative z-10 text-white w-full"
           initial="hidden"

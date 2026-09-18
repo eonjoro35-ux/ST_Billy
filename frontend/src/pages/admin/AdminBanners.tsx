@@ -122,6 +122,7 @@ export default function AdminBanners() {
                     src={formData.image_url}
                     alt="Preview"
                     className="h-40 w-full object-cover rounded-lg"
+                    loading="lazy"
                   />
                 </div>
               )}
@@ -150,6 +151,7 @@ export default function AdminBanners() {
                 src={banner.image_url}
                 alt={banner.title}
                 className="w-full h-full object-cover"
+                loading="lazy"
               />
             </div>
             <div className="p-4">

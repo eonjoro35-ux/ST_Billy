@@ -134,6 +134,7 @@ export default function LeadershipPage() {
                       src={director.image_url}
                       alt={director.name}
                       className="w-full h-full object-cover"
+                      loading="lazy"
                     />
                   ) : (
                     <AvatarPlaceholder />
@@ -191,6 +192,7 @@ export default function LeadershipPage() {
                         src={member.image_url}
                         alt={member.name}
                         className="w-full h-full object-cover"
+                        loading="lazy"
                       />
                     ) : (
                       <AvatarPlaceholder />

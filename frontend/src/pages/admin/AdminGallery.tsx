@@ -134,13 +134,12 @@ export default function AdminGallery() {
 
       {message.text && (
         <div
-          className={`p-4 rounded-lg mb-6 border font-medium ${
-            message.type === "success"
+          className={`p-4 rounded-lg mb-6 border font-medium ${message.type === "success"
               ? "bg-green-50 border-success text-success"
               : message.type === "warning"
                 ? "bg-amber-50 border-warning text-warning"
                 : "bg-red-50 border-danger text-danger"
-          }`}
+            }`}
         >
           {message.text}
         </div>
@@ -232,6 +231,7 @@ export default function AdminGallery() {
                   src={item.image_url}
                   alt={item.caption}
                   className="w-full h-full object-cover"
+                  loading="lazy"
                 />
                 <span className="absolute top-2 left-2 bg-secondary text-white text-[10px] uppercase font-bold px-2 py-0.5 rounded shadow">
                   {item.category}

@@ -151,13 +151,12 @@ export default function AdminLeadership() {
 
       {message.text && (
         <div
-          className={`p-4 rounded-lg mb-6 border text-sm font-medium ${
-            message.type === "success"
+          className={`p-4 rounded-lg mb-6 border text-sm font-medium ${message.type === "success"
               ? "bg-green-50 border-success text-success"
               : message.type === "warning"
                 ? "bg-amber-50 border-warning text-warning"
                 : "bg-red-50 border-danger text-danger"
-          }`}
+            }`}
         >
           {message.text}
         </div>
@@ -284,6 +283,7 @@ export default function AdminLeadership() {
                     <img
                       src={member.image_url}
                       className="w-full h-full object-cover"
+                      loading="lazy"
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-[10px] text-gray-400 font-mono">

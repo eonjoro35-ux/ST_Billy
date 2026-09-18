@@ -15,23 +15,25 @@ export default function Header() {
   ];
 
   return (
-    <header className="bg-background text-white sticky top-0 z-50 shadow-lg">
-      <div className="container-main py-4">
-        <div className="flex justify-between items-center">
+    <header className="bg-background text-white sticky top-0 z-50 shadow-md">
+      <div className="container-main py-2">
+        <div className="flex items-center justify-between gap-4">
           <Link
             to="/"
-            className="text-2xl font-bold"
+            className="flex items-center gap-3 text-xl font-semibold"
             onClick={() => setIsOpen(false)}
           >
             <img
               src="logo.webp"
               alt="Logo"
-              className="sm:h-16 md:h-18 lg:h-20 rounded-full w-auto"
+              className="h-12 md:h-14 rounded-full w-auto"
+              loading="lazy"
             />
+            ST. Billy
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden font-bold md:flex items-center gap-8 text-primary">
+          <nav className="hidden font-semibold md:flex items-center gap-5 text-primary text-sm">
             {navItems.map((item) => (
               <Link
                 key={item.href}
@@ -45,7 +47,7 @@ export default function Header() {
             {/* Call to Action Donate Link */}
             <Link
               to="/donate"
-              className="inline-flex items-center gap-2 bg-accent hover:bg-accent/90 text-white font-bold px-5 py-2.5 rounded-full shadow transition-all transform hover:-translate-y-0.5"
+              className="inline-flex items-center gap-2 bg-accent hover:bg-accent/90 text-white font-semibold px-4 py-2 rounded-full shadow transition-all transform hover:-translate-y-0.5"
             >
               <Heart size={16} fill="currentColor" />
               Donate
