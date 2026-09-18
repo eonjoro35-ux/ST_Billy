@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 
 const HomePage = lazy(() => import("./HomePage"));
 const AboutPage = lazy(() => import("./AboutPage"));
@@ -17,9 +17,33 @@ function SectionLoader() {
 }
 
 function LazySection({ id, children }: { id: string; children: React.ReactNode }) {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [shouldRender, setShouldRender] = useState(id === "home");
+
+  useEffect(() => {
+    if (shouldRender || !sectionRef.current) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldRender(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "320px 0px" },
+    );
+
+    observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, [shouldRender]);
+
   return (
-    <section id={id} className="scroll-mt-24">
-      <Suspense fallback={<SectionLoader />}>{children}</Suspense>
+    <section ref={sectionRef} id={id} className="content-section scroll-mt-24">
+      {shouldRender ? (
+        <Suspense fallback={<SectionLoader />}>{children}</Suspense>
+      ) : (
+        <SectionLoader />
+      )}
     </section>
   );
 }

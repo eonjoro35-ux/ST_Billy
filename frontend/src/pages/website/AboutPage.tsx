@@ -26,7 +26,7 @@ export default function AboutPage() {
             className="mb-4"
           >
             <a
-              href="/"
+              href="#home"
               className="inline-flex items-center gap-2 text-sm text-white/70 hover:text-white font-medium transition-colors group"
             >
               <span className="transform group-hover:-translate-x-1 transition-transform inline-block">
@@ -76,8 +76,8 @@ export default function AboutPage() {
               school that offers alternative basic education to students between
               the ages of 4 and 15 who navigate diverse learning and
               socio-economic challenges. Established within the complex
-              socioeconomic environment of the **Dandora slums in Nairobi,
-              Kenya**, our center stands as a beacon of stability where children
+              socioeconomic environment of the Dandora slums in Nairobi,
+              Kenya, our center stands as a beacon of stability where children
               can reclaim their right to education.
             </motion.p>
 
@@ -100,9 +100,9 @@ export default function AboutPage() {
               ecosystem of the child. We actively collaborate with
               community-based organizations, global well-wishers, local
               authorities, and the government to offer foundational safety
-              nets—including comprehensive **daily feeding programs, poverty
+              nets—including comprehensive daily feeding programs, poverty
               alleviation initiatives, healthcare awareness, sports
-              rehabilitation, and youth counseling networks**.
+              rehabilitation, and youth counseling networks.
             </motion.p>
           </motion.div>
 

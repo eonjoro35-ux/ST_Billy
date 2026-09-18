@@ -87,7 +87,7 @@ export default function ContactPage() {
             className="mb-4"
           >
             <a
-              href="/"
+              href="#home"
               className="inline-flex items-center gap-2 text-sm text-white/70 hover:text-white font-medium transition-colors group"
             >
               <span className="transform group-hover:-translate-x-1 transition-transform inline-block">

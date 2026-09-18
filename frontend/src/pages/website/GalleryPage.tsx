@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { supabase } from "../../services/supabaseClient";
+import { isSupabaseConfigured, supabase } from "../../services/supabaseClient";
 
 const staggerContainer = {
   hidden: { opacity: 0 },
@@ -23,6 +23,11 @@ export default function GalleryPage() {
 
   useEffect(() => {
     async function loadPublicGallery() {
+      if (!isSupabaseConfigured) {
+        setLoading(false);
+        return;
+      }
+
       try {
         setLoading(true);
         const { data, error } = await supabase
@@ -73,7 +78,7 @@ export default function GalleryPage() {
             className="mb-4"
           >
             <a
-              href="/"
+              href="#home"
               className="inline-flex items-center gap-2 text-sm text-white/70 hover:text-white font-medium transition-colors group"
             >
               <span className="transform group-hover:-translate-x-1 transition-transform inline-block">

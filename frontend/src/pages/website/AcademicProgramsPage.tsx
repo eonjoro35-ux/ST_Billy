@@ -1,6 +1,6 @@
 // src/pages/website/AcademicProgramsPage.tsx
 import { useEffect, useState } from "react";
-import { supabase } from "../../services/supabaseClient";
+import { isSupabaseConfigured, supabase } from "../../services/supabaseClient";
 import { motion as motionElement } from "framer-motion";
 import {
   GraduationCap,
@@ -38,6 +38,11 @@ export default function AcademicProgramsPage() {
 
   useEffect(() => {
     async function loadPrograms() {
+      if (!isSupabaseConfigured) {
+        setLoading(false);
+        return;
+      }
+
       try {
         setLoading(true);
         const { data, error } = await supabase
@@ -79,7 +84,7 @@ export default function AcademicProgramsPage() {
             className="mb-4"
           >
             <a
-              href="/"
+              href="#home"
               className="inline-flex items-center gap-2 text-sm text-white/70 hover:text-white font-medium transition-colors group"
             >
               <span className="transform group-hover:-translate-x-1 transition-transform inline-block">

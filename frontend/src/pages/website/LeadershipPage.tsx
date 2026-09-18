@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { supabase } from "../../services/supabaseClient";
+import { isSupabaseConfigured, supabase } from "../../services/supabaseClient";
 import { motion } from "framer-motion";
 
 const staggerContainer = {
@@ -24,6 +24,11 @@ export default function LeadershipPage() {
 
   useEffect(() => {
     const loadLeadershipFromDB = async () => {
+      if (!isSupabaseConfigured) {
+        setLoading(false);
+        return;
+      }
+
       try {
         setLoading(true);
         const { data, error } = await supabase
@@ -91,7 +96,7 @@ export default function LeadershipPage() {
             className="mb-4"
           >
             <a
-              href="/"
+              href="#home"
               className="inline-flex items-center gap-2 text-sm text-white/70 hover:text-white font-medium transition-colors group"
             >
               <span className="transform group-hover:-translate-x-1 transition-transform inline-block">
