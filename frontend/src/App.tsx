@@ -7,13 +7,7 @@ import {
 } from "react-router-dom";
 import { lazy, Suspense, useEffect } from "react";
 import MainLayout from "./layouts/MainLayout";
-const HomePage = lazy(() => import("./pages/website/HomePage"));
-const AboutPage = lazy(() => import("./pages/website/AboutPage"));
-const LeadershipPage = lazy(() => import("./pages/website/LeadershipPage"));
-const AcademicProgramsPage = lazy(() => import("./pages/website/AcademicProgramsPage"));
-const ContactPage = lazy(() => import("./pages/website/ContactPage"));
-const GalleryPage = lazy(() => import("./pages/website/GalleryPage"));
-const DonatePage = lazy(() => import("./pages/website/DonatePage"));
+const LandingPage = lazy(() => import("./pages/website/LandingPage"));
 const LoginPage = lazy(() => import("./pages/auth/LoginPage"));
 import AdminLayout from "./layouts/AdminLayout";
 const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
@@ -49,13 +43,13 @@ function App() {
       <Suspense fallback={<PageLoader />}>
         <Routes>
           <Route element={<MainLayout />}>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/leadership" element={<LeadershipPage />} />
-            <Route path="/academic-programs" element={<AcademicProgramsPage />} />
-            <Route path="/gallery" element={<GalleryPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="/donate" element={<DonatePage />} />
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/about" element={<Navigate to="/#about" replace />} />
+            <Route path="/leadership" element={<Navigate to="/#leadership" replace />} />
+            <Route path="/academic-programs" element={<Navigate to="/#programs" replace />} />
+            <Route path="/gallery" element={<Navigate to="/#gallery" replace />} />
+            <Route path="/contact" element={<Navigate to="/#contact" replace />} />
+            <Route path="/donate" element={<Navigate to="/#donate" replace />} />
           </Route>
 
           <Route path={`${PORTAL_PREFIX}/login`} element={<LoginPage />} />

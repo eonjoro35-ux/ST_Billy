@@ -41,10 +41,10 @@ export default function HomePage() {
             quality education."
           </motion.p>
           <motion.div variants={fadeInUp} className="flex gap-4">
-            <a href="/academic-programs" className="btn-primary">
+            <a href="#programs" className="btn-primary">
               Programs
             </a>
-            <a className="btn-outline" href="/contact">
+            <a className="btn-outline" href="#contact">
               Contact Us
             </a>
           </motion.div>

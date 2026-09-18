@@ -6,12 +6,12 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
-    { label: "Home", href: "/" },
-    { label: "About", href: "/about" },
-    { label: "Leadership", href: "/leadership" },
-    { label: "Programs", href: "/academic-programs" },
-    { label: "Gallery", href: "/gallery" },
-    { label: "Contact", href: "/contact" },
+    { label: "Home", href: "/#home" },
+    { label: "About", href: "/#about" },
+    { label: "Leadership", href: "/#leadership" },
+    { label: "Programs", href: "/#programs" },
+    { label: "Gallery", href: "/#gallery" },
+    { label: "Contact", href: "/#contact" },
   ];
 
   return (
@@ -19,7 +19,7 @@ export default function Header() {
       <div className="container-main py-2">
         <div className="flex items-center justify-between gap-4">
           <Link
-            to="/"
+            to="/#home"
             className="flex items-center gap-3 text-xl font-semibold"
             onClick={() => setIsOpen(false)}
           >
@@ -46,7 +46,7 @@ export default function Header() {
 
             {/* Call to Action Donate Link */}
             <Link
-              to="/donate"
+              to="/#donate"
               className="inline-flex items-center gap-2 bg-accent hover:bg-accent/90 text-white font-semibold px-4 py-2 rounded-full shadow transition-all transform hover:-translate-y-0.5"
             >
               <Heart size={16} fill="currentColor" />
@@ -77,7 +77,7 @@ export default function Header() {
               </Link>
             ))}
             <Link
-              to="/donate"
+              to="/#donate"
               className="inline-flex items-center justify-center gap-2 bg-accent text-white px-5 py-3 rounded-xl shadow mt-2"
               onClick={() => setIsOpen(false)}
             >

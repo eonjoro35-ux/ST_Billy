@@ -27,7 +27,7 @@ export default function Footer() {
               nutritional safety nets to children in Dandora.
             </p>
             <Link
-              to="/donate"
+              to="/#donate"
               className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider bg-accent text-white px-4 py-2 rounded-lg hover:bg-accent/90 transition-colors"
             >
               <Heart size={12} fill="currentColor" /> Support Our Mission
@@ -39,33 +39,33 @@ export default function Footer() {
             <h3 className="text-xl font-bold mb-4">Quick Links</h3>
             <ul className="space-y-2 text-gray-300 text-sm">
               <li>
-                <Link to="/about" className="hover:text-accent">
+                <Link to="/#about" className="hover:text-accent">
                   About
                 </Link>
               </li>
               <li>
-                <Link to="/leadership" className="hover:text-accent">
+                <Link to="/#leadership" className="hover:text-accent">
                   Leadership
                 </Link>
               </li>
               <li>
-                <Link to="/academic-programs" className="hover:text-accent">
+                <Link to="/#programs" className="hover:text-accent">
                   Programs
                 </Link>
               </li>
               <li>
-                <Link to="/gallery" className="hover:text-accent">
+                <Link to="/#gallery" className="hover:text-accent">
                   Gallery
                 </Link>
               </li>
               <li>
-                <Link to="/contact" className="hover:text-accent">
+                <Link to="/#contact" className="hover:text-accent">
                   Contact
                 </Link>
               </li>
               <li>
                 <Link
-                  to="/donate"
+                  to="/#donate"
                   className="hover:text-accent font-semibold text-accent"
                 >
                   Donate Directly

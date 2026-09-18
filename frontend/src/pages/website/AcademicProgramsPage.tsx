@@ -176,7 +176,7 @@ export default function AcademicProgramsPage() {
           </p>
           <div className="pt-2">
             <a
-              href="/contact"
+              href="#contact"
               className="inline-block bg-primary text-white text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded-lg shadow hover:bg-primary/90 transition-colors"
             >
               Get Involved Today
