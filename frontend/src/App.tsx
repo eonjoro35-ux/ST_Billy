@@ -24,7 +24,7 @@ export const PORTAL_PREFIX = "/st-bill-portal-99";
 
 function App() {
   return (
-    <Router>
+    <Router basename="/ST_Billy">
       <Routes>
         {/* Public Website Routes */}
         <Route element={<MainLayout />}>
