@@ -26,7 +26,7 @@ export default function AdminLayout() {
     // Listen for authentication state adjustments (e.g., tokens expiration)
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, session) => {
+    } = supabase.auth.onAuthStateChange((_event, session) => {
       if (!session) {
         navigate(`${PORTAL_PREFIX}/login`, { replace: true });
       }
