@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { contentAPI, newsAPI, eventsAPI } from "../../services/api";
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -13,10 +12,6 @@ const staggerContainer = {
 };
 
 export default function HomePage() {
-  const [content, setContent] = useState<any>(null);
-  const [news, setNews] = useState<any[]>([]);
-  const [events, setEvents] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const images = [
@@ -33,34 +28,6 @@ export default function HomePage() {
     return () => clearInterval(timer);
   }, [images.length]);
 
-  useEffect(() => {
-    const loadContent = async () => {
-      try {
-        const [homepageRes, newsRes, eventsRes] = await Promise.all([
-          contentAPI.getHomepage(),
-          newsAPI.getAll(1, 2),
-          eventsAPI.getAll(1, 2),
-        ]);
-        setContent(homepageRes.data);
-
-        const fetchedNews = newsRes.data.data || [];
-        setNews([...fetchedNews].slice(0, 2));
-
-        const fetchedEvents = eventsRes.data.data || [];
-        setEvents([...fetchedEvents].slice(0, 2));
-      } catch (error) {
-        console.error("Error loading homepage:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadContent();
-  }, []);
-
-  if (loading)
-    return (
-      <div className="flex justify-center items-center h-96">Loading...</div>
-    );
 
   return (
     <div className="space-y-16 overflow-hidden bg-gray-50/50">
@@ -74,14 +41,14 @@ export default function HomePage() {
               src={imgUrl}
               alt={`School Campus View ${index + 1}`}
               initial={{ opacity: 0 }}
-              animate={{ opacity: isActive ? 1 : 0 }}
+              animate={{ opacity: isActive ? 0.9 : 0 }}
               transition={{ duration: 1 }}
-              className="absolute inset-0 h-full w-full object-cover object-center pointer-events-none"
-              style={{ zIndex: isActive ? 10 : 0 }}
+              className="absolute inset-0 h-full w-full object-cover object-center pointer-events-none filter brightness-70"
+              style={{ zIndex: isActive ? 6 : 0 }}
             />
           );
         })}
-        <div className="absolute inset-0 z-10 backdrop-blur-sm bg-secondary/40 md:bg-gradient-to-r md:from-secondary md:via-secondary/85 md:to-transparent"></div>{" "}
+        <div className="absolute inset-0 z-10 backdrop-blur-sm bg-[#4a0f0f]/35 md:bg-gradient-to-r md:from-[#4a0f0f]/70 md:via-[#4a0f0f]/45 md:to-transparent"></div>
         <motion.div
           className="container-main relative z-10 text-white w-full"
           initial="hidden"
